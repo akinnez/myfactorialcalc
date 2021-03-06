@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The factorial Calculator</title>
+    <link rel="stylesheet" href="../push/mutan/bootstrap-5.0.0-beta1-dist/bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css">
+  </head>
+  <body class="bg-danger">
+      <div class="container-fluid m-0 p-0 ">
+          <div class="container-fluid card w-50 h-100 bg-light">
+            <h1 class="h3 text-center">FACTORIAL CALCULATOR</h1>
+            <p><input class="form-control w-50 mx-auto mt-4" placeholder="Enter the value of n" type="number" id="val"/></p>
+    <p><input class="form-control w-50 mx-auto" placeholder="Enter the value of r" type="number" id="val1" /></p>
+    <button class="btn btn-md w-50 btn-dark btn-group-sm btn-outline-warning mx-auto mb-2" onclick="factorials(val.value)">Factorial</button>
+    <button class="btn btn-md w-50 btn-dark btn-group-sm btn-outline-warning mx-auto mb-2" onclick="permutation(val.value,val1.value)">Permutation</button>
+    <button class="btn btn-md w-50 btn-dark btn-group-sm btn-outline-warning mx-auto mb-2" onclick="combination(val.value,val1.value)">Combination</button>
+    <button class="btn btn-md w-50 btn-dark btn-group-sm btn-outline-warning mx-auto mb-2" onclick="binomial(val.value,val1.value)">Pascal Triangle</button>
+    <h5 id="show" style="text-align: center"></h5>
+    <h5 id="result" style="text-align: center"></h5>
+</div>
+</div>
+  </body>
+</html>
+<script>
+    show.innerHTML += " ";
+  function factorials(s) {
+    let n = 1;
+    for (i = 1; i <= s; i++) {
+      n *= i;
+    }
+    show.innerHTML = `The Factorial of ${s} is ${n}`
+     return n
+     }  
+  function second(s, p) {
+    let n = 1;
+    for (i = 1; i <= s - p; i++) {
+      n *= i;
+    }
+    return n;
+  }
+
+  function permutation(s, p) {
+    var q = (parseFloat(factorial(s) / second(s, p)));
+    show.innerHTML = `The Permutation of ${s} and ${p} is ${q}`
+  }
+  function factorial(p) {
+    let n = 1;
+    for (i = 1; i <= p; i++) {
+      n *= i;
+    }
+    return n;
+  }
+
+  function combination(s, p) {
+    var q = (factorial(s) / (second(s, p) * factorial(p)));
+    show.innerHTML = `The Combination of ${s} and ${p} is ${q}`
+  }
+
+  function binomial(s, p) {
+    for (let g = 0; g <= s; g++) {
+      show.innerHTML += `<div></div>`
+      for (let index = 0; index <= p; index++) {
+        if ((g, index) ===0) {
+           let  t = 1;
+          show.innerHTML += `${t} `;
+        } else if (g < index) {
+          t = null;
+        } else {
+          t = factorial(g) / (second(g, index) * factorial(index));
+          show.innerHTML += `${t}  `;
+        }
+      }
+    }
+  }
+  
+</script>
