@@ -4,22 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Factorial Calculator</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">  
   </head>
   <style>
   #res{
     margin-left:auto;
     margin-right: auto;
+    width: 50%;
+  }
+  #press{
+    position: relative;
+    left: 25%;
+  }
+  .card{
+    width: 50%;
+  }
+  #result1{
+    word-spacing: 2rem;
+  }
+  @media(max-width: 769px){
+    .card{
+      width: 100%;
+    }
   }
   </style>
-  <body class="bg-danger">
+  <body>
     <div class="container-fluid" id="body">
-        <div class="card w-50 h-100 mx-auto mt-4 bg-secondary">
-          <div class="w-100 bg-white" style="border-bottom: 1px dashed #ccc;">
-            <h1 class="h3 mt-2 text-center text-danger">THE FACTORIAL CALCULATOR</h1>
+        <div class="card h-100 mx-auto mt-4" style="border:1px solid royalblue">
+          <div class="w-100" style="border-bottom: 1px dashed royalblue;">
+            <h1 class="h3 mt-2 text-center text-primary">THE FACTORIAL CALCULATOR</h1>
           </div>
-            <h3 class="h4 text-center text-danger mt-4">CALCULATE THE <p class="mt-2"> 
-                <select class="text-danger " name="sel" id="sel" onchange="inp()">
+            <h3 class="h4 text-center text-primary mt-4">CALCULATE THE <p class="mt-2"> 
+                <select class="text-primary " name="sel" id="sel" onchange="inp()" style="border: 1px solid royalblue;outline-color: royalblue;">
                 <option class="form-control" value="">Select any option</option class="form-control">
                 <option class="form-control" value="factorial">Factorial</option>
                 <option class="form-control" value="permutation">Permutation</option>
@@ -29,77 +45,88 @@
           </p>
             </h3>
             <div id="res"></div>
-            <h6 class="w-100 text-center text-white h6 mt-3" id="result"></h6>
+            <h6 class="w-100 text-center text-primary h6 mt-3" id="result"></h6>
         </div>
     </div>
+    <h6 class="w-100 text-center text-primary h6 mt-3" id="result1"></h6>
   </body>
 </html>
 <script>
 function button() {
     let button = document.createElement("button");
-    button.className = "btn btn-sm btn-outline-danger ms-5 text-lg-center text-white";
+    let div = document.createElement("div")
+    div += button
+    div.className="w-100"
+    button.className = "btn btn-sm btn-primary mx-auto text-center text-white";
     button.innerHTML = "GET RESULT";
     button.id = "press"
     document.getElementById("res").appendChild(button);
     document.getElementById("press").addEventListener("click", display);
   }
-  function inp() {
-    if (sel.value =="factorial") {
-      let p = document.createElement("p")
+  function notify() {
+    small = document.createElement("small");
+    small.innerHTML="Please Note that the value of <b>n</b> must be greater than or equal to the value of <b>r</b>"
+    small.className="text-primary text-center mt-3 mb-4 d-block"
+    small.id="small"
+    document.getElementById("res").appendChild(small);
+  }
+  function input() {
+    let p = document.createElement("p")
       const input = document.createElement("input");
       p.appendChild(input) 
       input.id = "put"
-    input.className = "form-control w-100";
+    input.className = "form-control w-100 text-primary bg-whitwe";
     input.setAttribute("placeholder","Input the value for n")
     input.setAttribute("type","number")
     result.innerHTML = " ";
     document.getElementById("res").innerHTML = " ";
+    document.getElementById("result1").innerHTML = " ";
     document.getElementById("res").appendChild(p);
+  }
+  function input1() {
+    const input1 = document.createElement("input");
+    let p1 = document.createElement("p")
+    // txt ='Enter the value of r: '
+   
+    // p1 += txt
+    // console.log(p1);
+      p1.appendChild(input1)
+      input1.id = "iput1"
+    input1.setAttribute("placeholder","Enter the value of r")
+    input1.setAttribute("type","number")
+    input1.className = "form-control w-100 text-primary bg-white";
+    result.innerHTML = " ";  
+    document.getElementById("res").appendChild(p1);
+  }
+  function inp() {
+    if (sel.value =="factorial" || sel.value =="pTriangle") {
+      input()
     button();
     }
     else if(sel.value ==""){
       document.getElementById("res").innerHTML = " ";
     }
     else{
-      const input = document.createElement("input");
-      let p = document.createElement("p")
-      p.appendChild(input)
-      input.id = "put"
-      input.setAttribute("placeholder","Enter the value of n")
-      input.setAttribute("type","number")
-      input.className = "form-control w-100"; 
-      result.innerHTML = " ";  
-     document.getElementById("res").innerHTML = " ";
-    document.getElementById("res").appendChild(p);
-    const input1 = document.createElement("input");
-    let p1 = document.createElement("p")
-      p1.appendChild(input1)
-      input1.id = "iput1"
-    input1.setAttribute("placeholder","Enter the value of r")
-    input1.setAttribute("type","number")
-    input1.className = "form-control w-100";
-    result.innerHTML = " ";  
-    document.getElementById("res").appendChild(p1);
+      input()
+      input1()
     button();
+    notify();
     }  
   }
-  result.innerHTML = " ";
     function display(){
-        if(sel.value=="factorial"){
-          result.innerHTML = " ";  
+        if(sel.value=="factorial"){  
           factorial(put.value)
         }
         else if (sel.value =="permutation") {
-          result.innerHTML = " ";  
+         document.getElementById("small").innerHTML=" ";
           permutation(put.value,iput1.value)
         }
         else if (sel.value =="combination") {
-          result.innerHTML = " ";  
+          document.getElementById("small").innerHTML = "";
           combination(put.value,iput1.value)
         }
         else if (sel.value =="pTriangle") {
-          result.innerHTML = " ";  
-          binomial(put.value,iput1.value)
+          binomial(put.value)
         }
     function factorial(s) {
       result.innerHTML = " ";
@@ -126,16 +153,20 @@ function button() {
     }
     return n 
   }
-
   function permutation(s,p) {
     result.innerHTML = " ";
     if(s < 0 || p < 0){
       return false
     }else if(s < p){
       return false
-    } else{
+       }
+     else{
       q =(parseFloat(factorial(s) / second(s,p)));
-    result.innerHTML = `The Permutation of ${s} and ${p} is ${q}`
+      result.innerHTML = `The Permutation of ${s} and ${p} is ${q}`
+    }
+    if (s=="" && p=="") {
+      s=0; p=0
+      result.innerHTML = `The Permutation of ${s} and ${p} is ${q}`
     }
   }
   function factorialp(p) {
@@ -145,39 +176,42 @@ function button() {
     }
     return n;
   }
-
   function combination(s,p) {
     result.innerHTML = " ";
     if(s < 0 || p < 0){
       return false
     }else if(s < p){
       return false
-    } else{
+    }
+    else if(s==" " && p==""){
+      s = 0; p = 0; 
+      result.innerHTML = `The Combination of ${s} and ${p} is ${q}`
+    } 
+    else{
     q = (factorial(s) / (second(s,p) * factorialp(p)));
     result.innerHTML = `The Combination of ${s} and ${p} is ${q}`
     }
+    if (s=="" && p=="") {
+      s=0; p=0
+      result.innerHTML = `The Permutation of ${s} and ${p} is ${q}`
+    }
   }
-  function binomial(s,p) {
-    if(s < 0 || p < 0){
-      return false
-    }else if(s < p){
-      return false
-    } else{
+  function binomial(s) {
+     p = s
     for (let g = 0; g <= s; g++) {
-      result.innerHTML += `<div class ="mt-2"style="border:1px solid red"></div>`;
+      result1.innerHTML += `<div class ="mt-2"style="border:1px solid royalblue"></div>`;
       for (let h = 0; h <= p; h++) {
         if ((g, h) ===0) {
            let  t = 1;
-          result.innerHTML += `${t} `;
+          result1.innerHTML += `${t} `;
         } else if (g < h) {
           t = null;
         }else {
             t = factorialp(g) / (second(g,h) * factorialp(h));
-            result.innerHTML += `${t} `; 
+            result1.innerHTML += `${t} `; 
           }
         }
      }
     }
   }
-    }
 </script>
